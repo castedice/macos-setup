@@ -1,0 +1,53 @@
+[user]
+    name = {{ .name | quote }}
+    email = {{ .email | quote }}
+{{ if .signingkey }}
+    signingkey = {{ .signingkey | quote }}
+{{ end }}
+{{ if .signingkey }}
+[gpg]
+    format = ssh
+[commit]
+    gpgsign = true
+{{ end }}
+[core]
+    editor = nvim
+    pager = delta
+    excludesfile = ~/.config/git/ignore
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    light = false
+    line-numbers = true
+    features = decorations
+[delta "decorations"]
+    commit-decoration-style = "bold yellow box"
+    file-style = "bold yellow ul"
+    hunk-header-style = "cyan"
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
+[pull]
+    rebase = true
+[rebase]
+    autoStash = true
+[rerere]
+    enabled = true
+[fetch]
+    prune = true
+[push]
+    autoSetupRemote = true
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[alias]
+    st = status -sb
+    co = checkout
+    br = branch
+    ci = commit
+    last = log -1 HEAD
+    unstage = reset HEAD --
+    lg = log --graph --decorate --oneline --abbrev-commit
+[init]
+    defaultBranch = main

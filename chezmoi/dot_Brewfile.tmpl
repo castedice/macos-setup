@@ -1,0 +1,66 @@
+tap "homebrew/bundle"
+tap "homebrew/services"
+
+# --- 1. 기본 CLI ---
+brew "git"        # 버전 관리
+brew "mas"        # Mac App Store 명령줄 도구
+brew "coreutils"  # GNU 기본 유틸
+brew "gnu-sed"    # GNU sed
+brew "wget"       # 다운로드 유틸
+brew "tree"       # 디렉토리 트리
+brew "watch"      # 주기적 실행
+brew "jq"         # JSON 처리
+
+# --- 2. 빠른 도구 (Rust 중심) ---
+brew "bat"        # cat 대체
+brew "eza"        # ls 대체
+brew "ripgrep"    # rg
+brew "fd"         # find 대체
+brew "git-delta"  # git diff 개선
+brew "zoxide"     # 스마트 cd
+brew "procs"      # ps 대체
+brew "duf"        # df 대체
+brew "dust"       # du 대체
+brew "bottom"     # top 대체
+brew "sd"         # sed 대체
+brew "hyperfine"  # 벤치마크
+brew "xh"         # HTTP 클라이언트
+brew "tealdeer"   # tldr (Rust)
+
+# --- 3. 검색/완성 ---
+brew "fzf"        # 퍼지 파인더
+
+# --- 4. 쉘/프롬프트 ---
+brew "sheldon"    # zsh 플러그인 매니저
+brew "starship"   # 프롬프트
+brew "direnv"     # 디렉터리별 환경변수
+
+# --- 5. 개발 도구 ---
+brew "gh"         # GitHub CLI
+brew "neovim"     # 에디터
+brew "biome"      # JS/TS 포맷터/린터
+
+# --- 6. 언어 런타임 ---
+brew "uv"         # Python 관리/런처
+brew "ruff"       # Python 린터/포맷터
+brew "node"       # JavaScript 런타임
+brew "rustup-init" # Rust 설치기 (rustup)
+
+# --- 7. 컨테이너 ---
+brew "colima"
+brew "docker"
+brew "docker-compose"
+
+# --- 8. 헤드리스 서버 전용 ---
+{{- if .headless }}
+# Tailscale: 외부 접속용 VPN
+cask "tailscale"
+{{- end }}
+
+# --- 9. 일반 맥북/데스크탑 전용 ---
+{{- if not .headless }}
+# 개발 및 생산성 도구
+cask "obsidian"
+cask "font-hack-nerd-font"
+cask "visual-studio-code"
+{{- end }}

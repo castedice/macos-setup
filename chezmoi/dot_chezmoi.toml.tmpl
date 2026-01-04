@@ -1,0 +1,10 @@
+{{- $headless := promptBool "이 장비는 헤드리스 서버입니까" -}}
+{{- $name := promptString "Git 사용자 이름" -}}
+{{- $email := promptString "Git 이메일 주소" -}}
+{{- $signingkey := promptString "Git SSH 서명 키 경로 (예: ~/.ssh/id_ed25519.pub, 비우면 미사용)" -}}
+
+[data]
+    headless = {{ $headless }}
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
+    signingkey = {{ $signingkey | quote }}

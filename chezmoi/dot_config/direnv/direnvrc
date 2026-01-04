@@ -1,0 +1,17 @@
+use_uv() {
+  if ! command -v uv >/dev/null 2>&1; then
+    echo "uv가 설치되어 있지 않습니다." >&2
+    return 1
+  fi
+
+  if [ ! -d .venv ]; then
+    uv venv
+  fi
+
+  if [ -f .venv/bin/activate ]; then
+    source .venv/bin/activate
+  else
+    echo ".venv 활성화 실패" >&2
+    return 1
+  fi
+}

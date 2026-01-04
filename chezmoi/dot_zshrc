@@ -1,0 +1,63 @@
+# --- 프롬프트 (Starship) ---
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+fi
+
+# --- Zsh 플러그인 (Sheldon) ---
+if command -v sheldon &> /dev/null; then
+  eval "$(sheldon source)"
+fi
+
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+
+if typeset -f history-substring-search-up >/dev/null; then
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+fi
+
+# --- 사용자 설정 ---
+
+# 1. Zoxide (스마트 cd)
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+  alias cd="z"
+fi
+
+# 2. Homebrew 경로
+if [[ -f /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# 3. uv tool 경로
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# 4. direnv
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
+# 5. Rustup 경로
+if [ -d "$HOME/.cargo/bin" ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# 6. fzf 키바인딩/완성
+if [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+fi
+if [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/completion.zsh
+fi
+
+# 7. Colima 설정 (설치된 경우에만 동작)
+if command -v colima &> /dev/null; then
+    export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
+fi
+
+# 8. 별칭
+alias ll="ls -alF"
+alias brewup="brew update && brew upgrade && brew cleanup"
+alias dco="docker-compose"
